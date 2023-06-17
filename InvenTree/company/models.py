@@ -377,7 +377,7 @@ class Address(models.Model):
 
 @receiver(pre_save, sender=Address)
 def check_primary(sender, instance, **kwargs):
-    """Removes primary flag from current primary address if the to-be-saved address is marked as primary"""
+    """Removes primary flag from current primary address if the to-be-saved address is marked as primarys"""
 
     if instance.company.primary_address is None:
         instance.primary = True
