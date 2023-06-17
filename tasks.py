@@ -586,7 +586,7 @@ def test(c, disable_pty=False, runtest='', keepdb=False, report=False, tag='', e
     args = ''
 
     if keepdb:
-        args += ' --keepdb'
+        args += ' --keepdb --parallel 4'
 
     if report:
         args += ' --slowreport'
