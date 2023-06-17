@@ -567,7 +567,7 @@ def test_translations(c):
         'runtest': 'Specify which tests to run, in format <module>.<file>.<class>.<method>',
     }
 )
-def test(c, disable_pty=False, runtest=''):
+def test(c, disable_pty=False, runtest='', keepdb=False, report=False, tag='', exclude=''):
     """Run unit-tests for InvenTree codebase.
 
     To run only certain test, use the argument --runtest.
@@ -583,8 +583,26 @@ def test(c, disable_pty=False, runtest=''):
 
     pty = not disable_pty
 
+    args = ''
+
+    if keepdb:
+        args += ' --keep-db'
+
+    if report:
+        args += ' --slowreport'
+
+    if tag:
+        args += f' --tag={tag}'
+
+    if exclude:
+        args += f' --exclude-tag={exclude}'
+
+    cmd = f'test {args} {runtest}'
+
+    print(f"Running test command: {cmd}")
+
     # Run coverage tests
-    manage(c, f'test --slowreport {runtest}', pty=pty)
+    manage(c, cmd, pty=pty)
 
 
 @task(help={'dev': 'Set up development environment at the end'})
